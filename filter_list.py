@@ -12,12 +12,12 @@ class FilterList:
         self.__setup_label()
 
     def setValues(self, vals: list):
-        self.vals = vals
+        self.vals = self.valsparts = vals
         self.var.set("")
         self.__set_values(self.vals)
 
     def getValue(self):
-        v = self.vals[self.list.curselection()[0]]
+        v = self.valsparts[self.list.curselection()[0]]
         return v
 
     def __set_values(self, vals: list):
@@ -44,11 +44,11 @@ class FilterList:
 
     def __trace_entry(self, *args, **kwargs):
         filter = self.var.get()
-        vals = []
+        self.valsparts = []
         for val in self.vals:
             if filter in val:
-                vals.append(val)
-        self.__set_values(vals)
+                self.valsparts.append(val)
+        self.__set_values(self.valsparts)
 
     def __setup_listbox(self):
         self.list = tk.Listbox(self.main)
